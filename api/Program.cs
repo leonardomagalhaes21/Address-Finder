@@ -44,5 +44,27 @@ app.MapGet("/api/address/{postcode}", async (String postcode) =>
 .WithName("GetAddressFromPostcode")
 .WithOpenApi();
 
+app.MapGet("/api/history", () =>
+{
+    var history = SearchHistory.GetSearchHistory();
+    return Results.Ok(history);
+})
+.WithName("GetSearchHistory")
+.WithOpenApi();
+
+
+app.MapPost("/api/history", async (string postcode) =>
+{
+    var address = await AddressFinder.FindAddress(postcode);
+    if (address == null)
+    {
+        return Results.NotFound(new { message = "Invalid Postcode." });
+    }
+    SearchHistory.AddSearchHistory(postcode);
+    return Results.Ok();
+})
+.WithName("AddSearchHistory")
+.WithOpenApi();
+
 app.Run();
 
