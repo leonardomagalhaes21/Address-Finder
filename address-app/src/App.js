@@ -70,7 +70,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Address Lookup</h1>
+      <h1><a href="/">Address Lookup</a></h1>
+      <p id="description">This app allows you to look up an address using a postcode. You can find the corresponding latitude and longitude, as well as the distance to Heathrow Airport.</p>
       <input 
         type="text" 
         value={postcode} 
